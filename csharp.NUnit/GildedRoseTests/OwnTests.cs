@@ -39,11 +39,13 @@ namespace GildedRoseTests
 [TestFixture]
 public class StandardItemTests
 {
+    //fiexed test numbers for all items
     [TestCase(10, 20, 9, 19)]
     [TestCase(1, 7, 0, 6)]
 
 
     //-> item decreases normally when the sell date is in the future
+    
     public void DegradesByOne_BeforeSellDate(int startSellIn, int startQuality, int expectedSellIn, int expectedQuality)
     {
         var item = TestHelper.AfterOneDay("+5 Dexterity Vest", startSellIn, startQuality);
@@ -72,6 +74,47 @@ public class StandardItemTests
     {
         var item = TestHelper.AfterOneDay("Elixir of the Mongoose", 5, 0);
         Assert.That(item.Quality, Is.EqualTo(0));
+    }
+}
+
+#endregion
+
+//now special item aged brie with some special rules
+//testing if the item behaves to the rules of ->
+
+#region Aged Brie
+
+[TestFixture]
+public class AgedBrieTests
+{
+
+    //-> Aged Brie increases in quality as it gets older
+    [Test]
+    public void IncreasesQuality_BeforeSellDate()
+    {
+        var item = TestHelper.AfterOneDay("Aged Brie", 2, 0);
+        Assert.Multiple(() =>
+        {
+            Assert.That(item.SellIn, Is.EqualTo(1));
+            Assert.That(item.Quality, Is.EqualTo(1));
+        });
+    }
+
+    //-> Aged Brie increases in quality twice as fast after the sell date
+    [Test]
+    public void IncreasesTwiceAsFast_AfterSellDate()
+    {
+        var item = TestHelper.AfterOneDay("Aged Brie", 0, 48);
+        Assert.That(item.Quality, Is.EqualTo(50)); // capped at 50
+    }
+
+
+    //-> Aged Brie cant have a quality more than 50
+    [Test]
+    public void Quality_Never_Above50()
+    {
+        var item = TestHelper.AfterOneDay("Aged Brie", 5, 50);
+        Assert.That(item.Quality, Is.EqualTo(50));
     }
 }
 
