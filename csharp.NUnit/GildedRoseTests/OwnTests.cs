@@ -119,3 +119,65 @@ public class AgedBrieTests
 }
 
 #endregion
+
+
+//now special item Backstage Pass with some special rules
+//testing if the item behaves to the rules of ->
+
+#region Backstage Passes
+
+[TestFixture]
+public class BackstagePassTests
+{
+    private const string Backstage = "Backstage passes to a TAFKAL80ETC concert";
+
+
+    //-> Backstage Passes increase normal when the concert is 10 days or more away
+
+    [Test]
+    public void IncreaseByOne_When_MoreThan10Days()
+    {
+        var item = TestHelper.AfterOneDay(Backstage, 11, 20);
+        Assert.That(item.Quality, Is.EqualTo(21));
+    }
+
+    //-> increase double when the concert is in 6-10 days
+
+    [Test]
+    public void IncreaseByTwo_When_Between6And10Days()
+    {
+        var item = TestHelper.AfterOneDay(Backstage, 10, 45);
+        Assert.That(item.Quality, Is.EqualTo(47));
+    }
+
+
+    //-> increase triple when the concert is in 1-5 days
+
+    [Test]
+    public void IncreaseByThree_When_Between1And5Days()
+    {
+        var item = TestHelper.AfterOneDay(Backstage, 5, 46);
+        Assert.That(item.Quality, Is.EqualTo(49)); 
+    }
+
+
+    //-> qualiy 0 when the concert is over
+
+    [Test]
+    public void Quality_DropsToZero_AfterConcert()
+    {
+        var item = TestHelper.AfterOneDay(Backstage, 0, 40);
+        Assert.That(item.Quality, Is.EqualTo(0));
+    }
+
+
+    // -> same as all
+    [Test]
+    public void Quality_Never_Above50()
+    {
+        var item = TestHelper.AfterOneDay(Backstage, 9, 50);
+        Assert.That(item.Quality, Is.EqualTo(50));
+    }
+}
+
+#endregion
