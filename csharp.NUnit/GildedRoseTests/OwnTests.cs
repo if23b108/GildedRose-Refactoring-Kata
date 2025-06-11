@@ -181,3 +181,31 @@ public class BackstagePassTests
 }
 
 #endregion
+
+//now special item Sulfuras that never changes
+//testing if the item behaves to the rules of ->
+
+
+#region Sulfuras
+
+[TestFixture]
+public class SulfurasTests
+{
+
+    // -> Sulfuras, Hand of Ragnaros doenst change in sell time or quality and is allowed to have a qualitiy of mor than 50
+    [Test]
+    public void NeverChanges()
+    {
+        var item = TestHelper.AfterOneDay("Sulfuras, Hand of Ragnaros", 0, 80);
+        Assert.Multiple(() =>
+        {
+            Assert.That(item.SellIn, Is.EqualTo(0));
+            Assert.That(item.Quality, Is.EqualTo(80));
+        });
+    }
+
+
+
+}
+
+#endregion

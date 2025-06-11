@@ -1,0 +1,14 @@
+﻿Teststrategie
+
+Anfang des testes läuft der test über die TestHelper methode, die die Fähigkeiten von jedem item an das jeweilige szenario anpasst.
+
+Die Tests sind in mehrere Kategorie eingeteilt:
+
+1) Die Tests für normale Items ohne Fähigkeiten, Items müssen nromal Qualität verlieren, die Qualität schneller verlieren wenn sie alt sind und ihre qualität nie unter 0 fallen lassen
+
+
+2) Die Tests für Aged Brie, DieQualität muss steigen, Die Qualität muss schneller steigen wenn das Item alt ist, dieQualität darf nicht mehr als 50 sein
+
+3) die Tests für Backstage Pass, Die Qualität muss normal steigen wenn es noch 10 tage oder länger zum Konzert sind, wenn es nocht 5-10 Tage sind muss die qualität doppelt steigen, wenn es 1-5 Tage entfernt ist muss die Qualität dreimal steigen, die qualität darf nie über 50 sein, wenn das konzert vorbei ist muss die Qualiät 0 sein
+
+4) Tests für Sulfuras, Egal welche eigenschaft Sulfuras darf die werte nie ändern, qualität und Datum bleibt immer gleich 
